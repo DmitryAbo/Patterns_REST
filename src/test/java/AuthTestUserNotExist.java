@@ -19,6 +19,7 @@ import static io.restassured.RestAssured.given;
 
 public class AuthTestUserNotExist {
     static UserInfo auth = UserDataGeneratorJson.Registration.registrationInfo("en", "blocked");
+
     @BeforeEach
     public void startBrowser() {
         open("http://localhost:9999/");

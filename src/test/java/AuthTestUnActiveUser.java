@@ -61,7 +61,7 @@ public class AuthTestUnActiveUser {
     @Test
     public void shouldFailInvalidPassword() {
         $x("//span[@data-test-id=\"login\"]//child::input").setValue(auth.getLogin());
-        $x("//span[@data-test-id=\"password\"]//child::input").setValue(auth.getPassword()+"fail");
+        $x("//span[@data-test-id=\"password\"]//child::input").setValue(auth.getPassword() + "fail");
         $(".button[data-test-id=\"action-login\"]").click();
         $x("//div[text() = \"Ошибка\"]").should(visible, Duration.ofSeconds(15));
         $x("//div[text() = \"Неверно указан логин или пароль\"]").should(visible, Duration.ofSeconds(15));
@@ -69,7 +69,7 @@ public class AuthTestUnActiveUser {
 
     @Test
     public void shouldFailInvalidLogin() {
-        $x("//span[@data-test-id=\"login\"]//child::input").setValue(auth.getLogin()+"fail");
+        $x("//span[@data-test-id=\"login\"]//child::input").setValue(auth.getLogin() + "fail");
         $x("//span[@data-test-id=\"password\"]//child::input").setValue(auth.getPassword());
         $(".button[data-test-id=\"action-login\"]").click();
         $x("//div[text() = \"Ошибка\"]").should(visible, Duration.ofSeconds(15));

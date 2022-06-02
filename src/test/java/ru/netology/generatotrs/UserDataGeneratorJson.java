@@ -12,9 +12,9 @@ import java.util.Locale;
 public class UserDataGeneratorJson {
     @UtilityClass
     public static class Registration {
-        public static UserInfo registrationInfo(String locale,String status) {
+        public static UserInfo registrationInfo(String locale, String status) {
             Faker faker = new Faker(new Locale(locale));
-            return new UserInfo(faker.gameOfThrones().character(),faker.dog().name(), status);
+            return new UserInfo(faker.gameOfThrones().character(), faker.dog().name(), status);
         }
     }
 }
