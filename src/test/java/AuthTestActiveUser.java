@@ -18,7 +18,7 @@ import static io.restassured.RestAssured.given;
 
 public class AuthTestActiveUser {
     private static RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setBaseUri("http://127.0.0.1")
+            .setBaseUri("http://localhost")
             .setPort(9999)
             .setAccept(ContentType.JSON)
             .setContentType(ContentType.JSON)
@@ -45,7 +45,7 @@ public class AuthTestActiveUser {
 
     @BeforeEach
     public void startBrowser() {
-        open("http://127.0.0.1:9999");
+        open("http://localhost:9999/");
     }
 
 
