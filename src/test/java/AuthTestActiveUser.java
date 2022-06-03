@@ -45,7 +45,7 @@ public class AuthTestActiveUser {
 
     @BeforeEach
     public void startBrowser() {
-        open("http://localhost:9999/");
+        open("http://localhost:9999");
     }
 
 
