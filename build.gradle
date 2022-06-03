@@ -23,7 +23,7 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.24'
     testCompileOnly 'org.projectlombok:lombok:1.18.24'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.24'
-    testImplementation 'com.codeborne:selenide:6.4.0'
+    implementation 'com.codeborne:selenide:6.5.1'
     testImplementation 'io.rest-assured:rest-assured:5.0.1'
     testImplementation 'com.google.code.gson:gson:2.8.6'
 }
