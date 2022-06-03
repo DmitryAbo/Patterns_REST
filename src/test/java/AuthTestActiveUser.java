@@ -45,6 +45,7 @@ public class AuthTestActiveUser {
 
     @BeforeEach
     public void startBrowser() {
+        System.setProperty("webdriver.chrome.driver", "/usr/bin/google-chrome");
         open("http://localhost:9999/");
     }
 
