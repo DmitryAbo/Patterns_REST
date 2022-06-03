@@ -33,6 +33,7 @@ public class AuthTestActiveUser {
 
     @BeforeAll
     static void setUpAll() {
+        System.setProperty("webdriver.chrome.driver", "/usr/bin/google-chrome");
         // сам запрос
         given() // "дано"
                 .spec(requestSpec) // указываем, какую спецификацию используем
@@ -45,7 +46,6 @@ public class AuthTestActiveUser {
 
     @BeforeEach
     public void startBrowser() {
-        System.setProperty("webdriver.chrome.driver", "/usr/bin/google-chrome");
         open("http://localhost:9999/");
     }
 
