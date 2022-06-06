@@ -7,7 +7,9 @@ import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.generatotrs.UserDataGeneratorJson;
+import ru.netology.generatotrs.UserDataGenerator;
+import ru.netology.requestSpecifications.Specification;
+import ru.netology.requests.Request;
 import ru.netology.users.UserInfo;
 
 import java.time.Duration;
@@ -17,30 +19,13 @@ import static com.codeborne.selenide.Selenide.*;
 import static io.restassured.RestAssured.given;
 
 public class AuthTestUnActiveUser {
-    private static RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setBaseUri("http://localhost")
-            .setPort(9999)
-            .setAccept(ContentType.JSON)
-            .setContentType(ContentType.JSON)
-            .log(LogDetail.ALL)
-            .build();
-
-    static Gson gson = new GsonBuilder()
-            .setPrettyPrinting()
-            .create();
-
-    static UserInfo auth = UserDataGeneratorJson.Registration.registrationInfo("en", "blocked");
+    static UserInfo auth = UserDataGenerator.Registration.registrationInfo("en", "blocked");
+    UserInfo authFail = UserDataGenerator.Registration.registrationFail();
 
     @BeforeAll
     static void setUpAll() {
-        // сам запрос
-        given() // "дано"
-                .spec(requestSpec) // указываем, какую спецификацию используем
-                .body(gson.toJson(auth)) // передаём в теле объект, который будет преобразован в JSON
-                .when() // "когда"
-                .post("/api/system/users") // на какой путь, относительно BaseUri отправляем запрос
-                .then() // "тогда ожидаем"
-                .statusCode(200); // код 200 OK
+        RequestSpecification requestSpec = Specification.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL);
+        Request.send(requestSpec, auth, "/api/system/users", 200);
     }
 
     @BeforeEach
@@ -61,7 +46,7 @@ public class AuthTestUnActiveUser {
     @Test
     public void shouldFailInvalidPassword() {
         $x("//span[@data-test-id=\"login\"]//child::input").setValue(auth.getLogin());
-        $x("//span[@data-test-id=\"password\"]//child::input").setValue(auth.getPassword() + "fail");
+        $x("//span[@data-test-id=\"password\"]//child::input").setValue(authFail.getPassword());
         $(".button[data-test-id=\"action-login\"]").click();
         $x("//div[text() = \"Ошибка\"]").should(visible, Duration.ofSeconds(15));
         $x("//div[text() = \"Неверно указан логин или пароль\"]").should(visible, Duration.ofSeconds(15));
@@ -69,7 +54,7 @@ public class AuthTestUnActiveUser {
 
     @Test
     public void shouldFailInvalidLogin() {
-        $x("//span[@data-test-id=\"login\"]//child::input").setValue(auth.getLogin() + "fail");
+        $x("//span[@data-test-id=\"login\"]//child::input").setValue(authFail.getLogin());
         $x("//span[@data-test-id=\"password\"]//child::input").setValue(auth.getPassword());
         $(".button[data-test-id=\"action-login\"]").click();
         $x("//div[text() = \"Ошибка\"]").should(visible, Duration.ofSeconds(15));

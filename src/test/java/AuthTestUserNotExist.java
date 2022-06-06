@@ -1,13 +1,6 @@
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
-import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import ru.netology.generatotrs.UserDataGeneratorJson;
+import ru.netology.generatotrs.UserDataGenerator;
 import ru.netology.users.UserInfo;
 
 import java.time.Duration;
@@ -15,10 +8,9 @@ import java.time.Duration;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selenide.*;
-import static io.restassured.RestAssured.given;
 
 public class AuthTestUserNotExist {
-    static UserInfo auth = UserDataGeneratorJson.Registration.registrationInfo("en", "blocked");
+    static UserInfo auth = UserDataGenerator.Registration.registrationInfo("en", "blocked");
 
     @BeforeEach
     public void startBrowser() {
