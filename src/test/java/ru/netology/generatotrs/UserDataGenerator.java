@@ -14,8 +14,10 @@ public class UserDataGenerator {
             Faker faker = new Faker(new Locale(locale));
             return new UserInfo(faker.gameOfThrones().character(), faker.dog().name(), status);
         }
-        public static UserInfo registrationFail(){
-            return new UserInfo("Fail", "Fail", "Fail");
+
+        public static UserInfo registrationFail(String locale, String status) {
+            Faker faker = new Faker(new Locale(locale));
+            return new UserInfo(faker.gameOfThrones().character(), faker.dog().name(), status);
         }
     }
 }

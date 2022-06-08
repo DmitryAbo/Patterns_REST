@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import ru.netology.generatotrs.UserDataGenerator;
-import ru.netology.requestSpecifications.Specification;
 import ru.netology.requests.Request;
 import ru.netology.users.UserInfo;
 
@@ -20,11 +19,11 @@ import static io.restassured.RestAssured.given;
 
 public class AuthTestUnActiveUser {
     static UserInfo auth = UserDataGenerator.Registration.registrationInfo("en", "blocked");
-    UserInfo authFail = UserDataGenerator.Registration.registrationFail();
+    UserInfo authFail = UserDataGenerator.Registration.registrationFail("en", "active");
 
     @BeforeAll
     static void setUpAll() {
-        RequestSpecification requestSpec = Specification.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL);
+        RequestSpecification requestSpec = Request.requestSpec("http://localhost", 9999, ContentType.JSON, ContentType.JSON, LogDetail.ALL);
         Request.send(requestSpec, auth, "/api/system/users", 200);
     }
 
